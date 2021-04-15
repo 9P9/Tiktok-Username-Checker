@@ -1,6 +1,6 @@
 # Tiktok-Username-Checker
 
-## Proxied/Proxyless (socks4/https/socks5 Accepted)
+## Proxied/Proxyless Use (socks4/https/socks5 Accepted)
 
 Program may run into false positives! However should be accurate 90% of the time!
 
