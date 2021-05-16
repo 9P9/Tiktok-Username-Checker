@@ -6,7 +6,7 @@ const prompt = require('prompt');
 const fs = require('fs');
 const proxies = fs.readFileSync('proxies.txt', 'utf-8').replace(/\r/gi, '').split('\n');
 const usernames = [...new Set(require('fs').readFileSync('usernames.txt', 'utf-8').replace(/\r/g, '').split('\n'))];
-
+const config = require("./config.json");
 
 
 process.on('uncaughtException', e => {});
@@ -23,9 +23,9 @@ function write(content, file) {
     });
 }
 
-function pcheck(username,type) {
+function pcheck(username) {
     var proxy = proxies[Math.floor(Math.random() * proxies.length)];
-	var agent = new ProxyAgent(`${type}://` + proxy);
+	var agent = new ProxyAgent(`${config.proxyType}://` + proxy);
     request({
         method: "GET",
         url: `https://www.tiktok.com/@${username}`,
@@ -117,33 +117,10 @@ prompt.start();
 	var options = result.options;
 		switch(options) {
 		case "1":
-			case "1":
-            console.log(chalk.inverse("[INFO] Press Corrosponding Number to Select Proxy Type! ")); 
-            console.log(`[1] https
-[2] socks4
-[3] socks5`); 
-            prompt.get(['type'], function(err, result) {
-            console.log('');
-            var type = result.type;
-            switch(type) {
-                case "1": 
-                    var type = "https";
-                    break
-                case "2":
-                    var type = "socks4";
-                    break
-                case "3":
-                    var type = "socks5";
-                    break
-                default:
-                    var type = "https";
-                    break
-            }
-			
+			console.log(`[Proxy] ${config.proxyType}`);
 			console.log(`[Tiktok Username Checker]: Started!`.inverse);
 			console.log(`[Checking %s Usernames with %s Proxies!]`.inverse, usernames.length, proxies.length);
-			for (var i in usernames) pcheck(usernames[i],type);
-			})
+			for (var i in usernames) pcheck(usernames[i]);
 			break;
 			
 		case "2":
